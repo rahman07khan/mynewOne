@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Products Table</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Model Name</th>
+                <th>Quantity</th>
+                <th>Each Price</th>
+                <th>Total Price</th>
+                <th>Created At</th>
+                <th>Modified At</th>
+                <th>Category</th>
+                <th>Created User</th>
+                <th>Modified User</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.model_name }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>{{ product.each_price }}</td>
+                    <td>{{ product.total_price }}</td>
+                    <td>{{ product.created_at }}</td>
+                    <td>{{ product.modified_at }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.created_user }}</td>
+                    <td>{{ product.modified_user }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="9">No products found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="?download_pdf=1" target="_blank" class="pdf-download-button">Download PDF</a>
+</body>
+</html>
