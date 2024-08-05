@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import *
 urlpatterns = [
+    path('', HealthCheckAPI.as_view(), name='healthcheck'),
     path('protected/', ProtectedView.as_view(), name='protected'),
     path('register/', RegisterView.as_view(), name='register'),
     path('rolemaster/', MasterRoleView.as_view(), name='role_masters'),
