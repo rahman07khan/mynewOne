@@ -34,6 +34,7 @@ class HealthCheckAPI(APIView):
 class RegisterView(APIView):
     
     def post(self, request):
+        print("Enterrr")
         data = request.data
         name = data.get('name')
         mobile_number = data.get('mobile_number')
@@ -75,9 +76,11 @@ class RegisterView(APIView):
                 }
                 transaction.commit()
                 return Response(response_data, status=status.HTTP_201_CREATED)
-            except ValidationError as e:
-                transaction.rollback()
-                return JsonResponse({'error': ''}, status=status.HTTP_400_BAD_REQUEST)
+            except Exception as e:
+                print("errr",e)
+                pass
+                # transaction.rollback()
+                # return JsonResponse({'error': ''}, status=status.HTTP_400_BAD_REQUEST)
         except MasterRole.DoesNotExist:
             return JsonResponse({'error': f'MasterRole {role_name} does not exist'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
@@ -85,7 +88,7 @@ class RegisterView(APIView):
             return JsonResponse({'error': ''}, status=status.HTTP_400_BAD_REQUEST)
         
 
-
+@permission_classes([AllowAny, ])
 class MasterRoleView(APIView):
     def post(self, request):
         try:
