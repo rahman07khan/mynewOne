@@ -130,7 +130,7 @@ DATABASES = {
         'NAME': 'test_dev_lyjm',
         'USER': 'rahmankhan',
         'PASSWORD': 'kSj2cOkHoTW3CasgCRSLuXfgBZpNUTxo',
-        'HOST': 'dpg-cqo8adij1k6c73b0ics0-a',
+        'HOST': 'dpg-cqo8adij1k6c73b0ics0-a.singapore-postgres.render.com',
         'PORT': '5432',
     }
 }
