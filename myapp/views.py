@@ -69,23 +69,25 @@ class RegisterView(APIView):
                 email.attach_file(image_path)
                 email.send()
                 refresh = RefreshToken.for_user(register)
-                response_data = {
-                    'status': 'Successfully created',
-                    'message': f'{role_name} of {name}, Registration Successful!!',
-                    'token': str(refresh.access_token),
-                }
-                transaction.commit()
-                return Response(response_data, status=status.HTTP_201_CREATED)
+                
+                
             except Exception as e:
                 print("errr",e)
                 pass
                 # transaction.rollback()
                 # return JsonResponse({'error': ''}, status=status.HTTP_400_BAD_REQUEST)
+            transaction.commit()
+            response_data = {
+                    'status': 'Successfully created',
+                    'message': f'{role_name} of {name}, Registration Successful!!',
+                    'token': str(refresh.access_token),
+                }
+            return JsonResponse(response_data, status=status.HTTP_201_CREATED)
         except MasterRole.DoesNotExist:
             return JsonResponse({'error': f'MasterRole {role_name} does not exist'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             transaction.rollback()
-            return JsonResponse({'error': ''}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
 
 @permission_classes([AllowAny, ])
